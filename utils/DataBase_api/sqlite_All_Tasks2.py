@@ -1,4 +1,6 @@
 import sqlite3
+import time
+
 import data.config
 
 
@@ -112,7 +114,7 @@ class DatabaseOfDayTasks:
             print('Пользователя не существует, проверьте правильность id')
             return 'Пользователя не существует, проверьте правильность id'
 
-        sql = f"UPDATE Day_Tasks SET {thing_to_change}=? WHERE instagram_account_name=?"
+        sql = f"UPDATE Day_Tasks SET {thing_to_change}=? WHERE instagram_link=?"
         self.execute(sql, parameters=(new_data, instagram_link), commit=True)
 
     @staticmethod
@@ -143,7 +145,7 @@ class DatabaseOfDayTasks:
         # обновляем информацию о запросах задания
         my_task = all_task[task_number]
         instagram_link = my_task[0]
-        telegram_id_of_users_who_request_this_task = my_task
+        telegram_id_of_users_who_request_this_task = my_task[5]
 
         new_telegram_id_of_users_who_request_this_task = telegram_id_of_users_who_request_this_task + ':' + user_telegram_id
         self.update_any_info_about_day_Task_by_instagram_link(instagram_link=instagram_link,
@@ -154,8 +156,16 @@ class DatabaseOfDayTasks:
 
 
 
-
-
 u = DatabaseOfDayTasks()
 u.create_table_of_Day_Tasks()
 
+# u.add_Day_Task('www.fdf12.com', '1223', 'vip', time.time(), 'dsijidkjiosdoih')
+
+# r = u.select_all_day_Task()
+# print(r)
+#
+# new_task = u.give_actual_task_to_User('1111')
+# new_task2 = u.give_actual_task_to_User('1111')
+# new_task21 = u.give_actual_task_to_User('111991')
+#
+# print(new_task, new_task2, new_task21, end='---------')
