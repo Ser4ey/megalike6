@@ -17,6 +17,7 @@ Executing:
 class DatabaseOfDayTasks:
     def __init__(self, path_to_db=data.config.absolute_path_to_Users_database):
         self.path_to_db = path_to_db
+        self.create_table_of_Day_Tasks()
 
     @property
     def connection(self):
@@ -155,17 +156,7 @@ class DatabaseOfDayTasks:
         return text_response
 
 
-
-u = DatabaseOfDayTasks()
-u.create_table_of_Day_Tasks()
-
-# u.add_Day_Task('www.fdf12.com', '1223', 'vip', time.time(), 'dsijidkjiosdoih')
-
-# r = u.select_all_day_Task()
-# print(r)
 #
-# new_task = u.give_actual_task_to_User('1111')
-# new_task2 = u.give_actual_task_to_User('1111')
-# new_task21 = u.give_actual_task_to_User('111991')
+# b1 = DatabaseOfDayTasks()
+# b1.create_table_of_Day_Tasks()
 #
-# print(new_task, new_task2, new_task21, end='---------')

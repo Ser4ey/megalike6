@@ -15,6 +15,7 @@ Executing:
 class DatabaseAllActiveUsers:
     def __init__(self, path_to_db=data.config.absolute_path_to_Users_database):
         self.path_to_db = path_to_db
+        self.create_table_of_Active_Users()
 
     @property
     def connection(self):
@@ -124,6 +125,7 @@ class DatabaseAllActiveUsers:
 class DatabaseOfHistoryOfUsers:
     def __init__(self, path_to_db=data.config.absolute_path_to_Users_database):
         self.path_to_db = path_to_db
+        self.create_table_of_History_of_Users()
 
     @property
     def connection(self):
@@ -221,9 +223,8 @@ class DatabaseOfHistoryOfUsers:
         self.execute(sql, parameters=(new_data, instagram_account_name), commit=True)
 
 
+#
+# u = DatabaseOfHistoryOfUsers()
+# u.create_table_of_History_of_Users()
 
-u = DatabaseOfHistoryOfUsers()
-u.create_table_of_History_of_Users()
-u.update_delete_date_of_history_User('@povar', '12-222-333')
-r = u.select_all_history_Users()
-print(r)
+
