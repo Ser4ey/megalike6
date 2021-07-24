@@ -4,11 +4,11 @@ from aiogram import types
 from aiogram.dispatcher.filters.builtin import CommandStart
 from aiogram.dispatcher.storage import FSMContext
 from aiogram.types import ReplyKeyboardRemove, CallbackQuery
-from loader import dp, db, User_and_Exists
+from loader import dp, db_of_active_users, db_of_history_users
 from states import Start_new_user_reg
 from keyboards.default import start_menu, start_menu2
 from keyboards.default import main_menu
-from utils.PaseR.inst_parser import wait_your_turn, find_best
+
 from keyboards.inline.yes_or_no import yes_or_no_inline
 
 

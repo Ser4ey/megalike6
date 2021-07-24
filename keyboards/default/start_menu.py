@@ -3,11 +3,14 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 start_menu = ReplyKeyboardMarkup(
     [
         [
-            KeyboardButton(text='Расcкажи правила')
+            KeyboardButton(text='12werfefwewfwd'),
+            KeyboardButton(text='12werfefwewfwd')
         ]
     ],
     resize_keyboard=True
 )
+
+
 
 start_menu2 = ReplyKeyboardMarkup(
     [
