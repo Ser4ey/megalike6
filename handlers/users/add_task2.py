@@ -1,8 +1,7 @@
-from utils.PaseR.inst_parser import wait_your_turn, find_best
 from aiogram import types
 from aiogram.dispatcher.storage import FSMContext
 from aiogram.types import ReplyKeyboardRemove, CallbackQuery
-from loader import dp, db, db_tasks, db_active_tasks, db_gen_id, User_and_Exists
+from loader import dp, db_of_active_users
 from keyboards.default import main_menu
 from states import AddTask
 from keyboards.default import cancel_menu
@@ -10,11 +9,20 @@ from keyboards.inline.task_without_comment import no_comment
 
 
 def check_to_cancel(text):
+    '''Проверка, может ли пользователь сегодня опубликовать задание (проверка дневного лимита)'''
     if text == 'Отменить' or text == '!':
         return True
     else:
         return False
 
+
+
+def check_user_daily_link_limit(telegram_user_id):
+    try:
+        pass
+    except Exception as er:
+        print(f'[-] check_user_daily_link_limit error: {er}')
+        return False
 
 def check_link_to_repeat(task_link, user_id):
     tasks = db_tasks.select_task(users_which_done_post=task_link)
