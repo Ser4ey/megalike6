@@ -22,7 +22,7 @@ def check_admin(user_id):
 
 
 @dp.message_handler(text='Удалить Участника')
-async def add_user(message: types.Message, state: FSMContext):
+async def delete_user1(message: types.Message, state: FSMContext):
     # добавления участника
     # Дынные: Telegram_id, Instagram_account_name, phone_number
     id = message.from_user.id
@@ -37,7 +37,7 @@ async def add_user(message: types.Message, state: FSMContext):
 
 
 @dp.message_handler(state=DeleteUserByAdmin.choose_user)
-async def add_user1_id(message: types.Message, state: FSMContext):
+async def delete_user2(message: types.Message, state: FSMContext):
     instagram_account = message.text
 
     if instagram_account == '_':

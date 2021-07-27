@@ -1,5 +1,6 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
+
 start_menu_users = ReplyKeyboardMarkup(
     [
         [
@@ -22,8 +23,7 @@ start_menu_admin = ReplyKeyboardMarkup(
             KeyboardButton(text='Удалить Участника')
         ],
         [
-            KeyboardButton(text='Сделать VIP'),
-            KeyboardButton(text='Удалить VIP')
+            KeyboardButton(text='Изменить информацию о пользователе'),
         ],
         [
             KeyboardButton(text='Список Участников'),
