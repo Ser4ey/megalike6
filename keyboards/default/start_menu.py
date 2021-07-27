@@ -1,6 +1,6 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
-start_menu = ReplyKeyboardMarkup(
+start_menu_users = ReplyKeyboardMarkup(
     [
         [
             KeyboardButton(text='Посмотреть Задания'),
@@ -15,11 +15,22 @@ start_menu = ReplyKeyboardMarkup(
 )
 
 
-
-start_menu2 = ReplyKeyboardMarkup(
+start_menu_admin = ReplyKeyboardMarkup(
     [
         [
-            KeyboardButton(text='Зарегистрироваться!')
+            KeyboardButton(text='Добавить Участника'),
+            KeyboardButton(text='Удалить Участника')
+        ],
+        [
+            KeyboardButton(text='Сделать VIP'),
+            KeyboardButton(text='Удалить VIP')
+        ],
+        [
+            KeyboardButton(text='Кол-во Участников'),
+            KeyboardButton(text='Кол-во Заданий')
+        ],
+        [
+            KeyboardButton(text='Опубликовать проверку')
         ]
     ],
     resize_keyboard=True

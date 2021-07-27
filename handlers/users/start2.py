@@ -5,7 +5,6 @@ from aiogram.dispatcher.filters.builtin import CommandStart
 from aiogram.dispatcher.storage import FSMContext
 from aiogram.types import ReplyKeyboardRemove, CallbackQuery
 from loader import dp, db_of_active_users, db_of_history_users
-from states import Start_new_user_reg
 from keyboards.default import start_menu
 
 
@@ -19,5 +18,5 @@ async def bot_start(message: types.Message):
 Привет 👋! Это бот активности для Instagram.
 
 С помощью этого бота вы сможете получать лайки и комментарии на свои посты.
-    ''', reply_markup=start_menu)
+    ''', reply_markup=start_menu.start_menu_users)
 
