@@ -23,7 +23,7 @@ def check_admin(user_id):
 
 
 @dp.message_handler(text='Добавить Участника')
-async def add_user(message: types.Message, state: FSMContext):
+async def change_info_about_user1(message: types.Message, state: FSMContext):
     # добавления участника
     # Дынные: Telegram_id, Instagram_account_name, phone_number
     id = message.from_user.id
