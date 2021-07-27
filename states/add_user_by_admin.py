@@ -1,6 +1,4 @@
 from aiogram.dispatcher.filters.state import StatesGroup, State
-# import datetime
-# print(datetime.datetime.today())
 
 
 class AddUserByAdmin(StatesGroup):

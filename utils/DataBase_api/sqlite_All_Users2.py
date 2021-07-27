@@ -62,19 +62,19 @@ class DatabaseAllActiveUsers:
         """
         self.execute(sql, commit=True)
 
-    def add_active_User(self, telegram_id, instagram_account_name, phone_number, registration_date, doing_task_history, available_links_for_today, number_of_links_requested_today, common_day_link_limit, vip_status, vip_bought_date, special_vip_links_number, deadline_of_common_vip):
+    def add_active_User(self, telegram_id, instagram_account_name, phone_number, registration_date):
         telegram_id = int(telegram_id)
         instagram_account_name = str(instagram_account_name)
         phone_number = str(phone_number)
         registration_date = str(registration_date)
-        doing_task_history = str(doing_task_history)
-        available_links_for_today = int(available_links_for_today)
-        number_of_links_requested_today = int(number_of_links_requested_today)
-        common_day_link_limit = int(common_day_link_limit)
-        vip_status = str(vip_status)
-        vip_bought_date = str(vip_bought_date)
-        special_vip_links_number = int(special_vip_links_number)
-        deadline_of_common_vip = str(deadline_of_common_vip)
+        doing_task_history = 'no_task_yet'
+        available_links_for_today = 1
+        number_of_links_requested_today = 0
+        common_day_link_limit = 0
+        vip_status = 'not-vip'
+        vip_bought_date = 'not-vip'
+        special_vip_links_number = 0
+        deadline_of_common_vip = 'not-vip'
 
         result = self.select_active_User(telegram_id=telegram_id)
         if result is not None:

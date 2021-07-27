@@ -26,7 +26,7 @@ start_menu_admin = ReplyKeyboardMarkup(
             KeyboardButton(text='Удалить VIP')
         ],
         [
-            KeyboardButton(text='Кол-во Участников'),
+            KeyboardButton(text='Список Участников'),
             KeyboardButton(text='Кол-во Заданий')
         ],
         [

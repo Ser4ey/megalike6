@@ -23,7 +23,7 @@ def check_admin(user_id):
         return False
 
 
-@dp.message_handler(text='admin_')
+@dp.message_handler(text='Список Участников')
 async def add_task(message: types.Message, state: FSMContext):
     '''Отпраляет админу меню админа'''
     id = message.from_user.id
@@ -33,7 +33,27 @@ async def add_task(message: types.Message, state: FSMContext):
         await message.answer(text=f'Вы не админ. telegram_id={id}')
         return
 
-    await message.answer(text='Вот ваше меню, admin.', reply_markup=start_menu.start_menu_admin)
+    users = db_of_active_users.select_all_active_Users()
+    for i in range(len(users)):
+        text_ = f'{i+1}) {users[i]}'
+        text_ = f'''
+Number-{i+1}
+
+telegram_id: {users[i][0]}
+instagram_account_name: {users[i][1]}
+phone_number: {users[i][2]}
+registration_date: {users[i][3]}
+available_links_for_today: {users[i][5]}
+number_of_links_requested_today: {users[i][6]}
+common_day_link_limit: {users[i][7]}
+vip_status: {users[i][8]}
+vip_bought_date: {users[i][9]}
+special_vip_links_number: {users[i][10]}
+deadline_of_common_vip: {users[i][11]}
+'''
+        await message.answer(text=text_)
+
+    await message.answer(text=f'Всего участников: {len(users)}')
 
 
 
