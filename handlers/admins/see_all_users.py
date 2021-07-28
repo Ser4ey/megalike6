@@ -1,11 +1,9 @@
-import sqlite3
-
 import data.config
 from aiogram import types
 from aiogram.dispatcher.storage import FSMContext
 from aiogram.types import ReplyKeyboardRemove, CallbackQuery
 from loader import dp, db_of_active_users, db_of_history_users
-
+import asyncio
 from keyboards.default import start_menu
 
 
@@ -52,6 +50,7 @@ special_vip_links_number: {users[i][10]}
 deadline_of_common_vip: {users[i][11]}
 '''
         await message.answer(text=text_)
+        await asyncio.sleep(0.1)
 
     await message.answer(text=f'Всего участников: {len(users)}')
 
