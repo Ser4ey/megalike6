@@ -71,10 +71,10 @@ class DatabaseAllActiveUsers:
         available_links_for_today = 1
         number_of_links_requested_today = 0
         common_day_link_limit = 1
-        vip_status = 'not-vip'
-        vip_bought_date = 'not-vip'
+        vip_status = 'not'
+        vip_bought_date = 'not'
         special_vip_links_number = 0
-        deadline_of_common_vip = 'not-vip'
+        deadline_of_common_vip = 'not'
 
         result = self.select_active_User(telegram_id=telegram_id)
         if result is not None:
