@@ -139,21 +139,42 @@ async def change_info_about_user3(message: types.Message, state: FSMContext):
             await message.answer(f'{er}')
             await state.finish()
             return
+        # изменение текущего лимита ссылок
+        user_info = db_of_active_users.select_active_User(instagram_account_name=instagram_account_name)
+
+        day_limit = user_info[5]
+        common_day_limit = user_info[7]
+        day_limit_for_today = value_to_change - common_day_limit + day_limit
+        await message.answer(f'Пользователь может обубликовать сегодня ещё {day_limit_for_today} ссылок')
+        db_of_active_users.update_any_info_about_any_active_User(
+            instagram_account_name=instagram_account_name,
+            thing_to_change='available_links_for_today',
+            new_data=day_limit_for_today
+        )
     elif thing_to_change == 5:
         # меняем дату покупки випа
         time_today = str(datetime.datetime.today()).strip().split('.')[0]
+        await message.answer(f'Меняем дату покупки на: {time_today}')
         db_of_active_users.update_any_info_about_any_active_User(
             instagram_account_name=instagram_account_name,
-            thing_to_change='deadline_of_common_vip',
+            thing_to_change='vip_bought_date',
             new_data=time_today
         )
-
+    elif thing_to_change == 1:
+        # Защита от одинаковых инстаграмм аккаунтов
+        user_info = db_of_active_users.select_active_User(instagram_account_name=value_to_change)
+        if not user_info is None:
+            await message.answer(f'Такой инстаграм аккаунт уже существует!')
+            await state.finish()
+            return
 
     db_of_active_users.update_any_info_about_any_active_User(
         instagram_account_name=instagram_account_name,
         thing_to_change=keys_[thing_to_change-1],
         new_data=value_to_change
     )
+    if thing_to_change == 1:
+        instagram_account_name = value_to_change
 
     await message.answer('Информация успешно изменена')
     user_text = get_user_text(db_of_active_users.select_active_User(instagram_account_name=instagram_account_name))

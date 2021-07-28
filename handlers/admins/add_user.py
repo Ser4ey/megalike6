@@ -66,6 +66,12 @@ async def add_user1_id(message: types.Message, state: FSMContext):
         await state.finish()
         return
 
+    user_info = db_of_active_users.select_active_User(instagram_account_name=instagram_account)
+    if not user_info is None:
+        await message.answer(f'Такой инстаграм аккаунт уже существует!')
+        await state.finish()
+        return
+
     await state.update_data(instagram_account=instagram_account)
     await message.answer('Добавления пользователя-3\n(Для отмены:_ Если нет, то:1)\nВведите номер телефона:')
     await AddUserByAdmin.state_phone_number.set()
