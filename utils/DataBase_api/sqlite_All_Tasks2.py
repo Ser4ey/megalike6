@@ -50,7 +50,7 @@ class DatabaseOfDayTasks:
         creator_telegram_id int NOT NULL,
         task_status varchar(255),
         created_time varchar(255),
-        comment_to_task varchar(255),
+        comment_to_task varchar,
         telegram_id_of_users_who_request_this_task varchar,
 
         PRIMARY KEY (instagram_link)
