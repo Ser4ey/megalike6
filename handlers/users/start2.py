@@ -10,13 +10,12 @@ from keyboards.default import start_menu
 
 @dp.message_handler(CommandStart())
 async def bot_start(message: types.Message):
-
     name = message.from_user.full_name
     id = message.from_user.id
 
-    await message.answer(text=f'''
-Привет 👋! Это бот активности для Instagram.
-
-С помощью этого бота вы сможете получать лайки и комментарии на свои посты.
-    ''', reply_markup=start_menu.start_menu_users)
+    user_info = db_of_active_users.select_active_User(telegram_id=id)
+    if user_info is None:
+        await message.answer(f'Приветствую, {name}! Вам необходимо зарегистрироваться.\nВаш id: {id}')
+        return
+    await message.answer(text=f'''Приветствую, {name} 👋''', reply_markup=start_menu.start_menu_users)
 

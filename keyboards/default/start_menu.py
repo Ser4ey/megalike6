@@ -4,8 +4,8 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 start_menu_users = ReplyKeyboardMarkup(
     [
         [
-            KeyboardButton(text='Посмотреть Задания'),
-            KeyboardButton(text='Добавить Задание')
+            KeyboardButton(text='Посмотреть пост'),
+            KeyboardButton(text='Добавить пост')
         ],
         [
             KeyboardButton(text='Помощь'),
