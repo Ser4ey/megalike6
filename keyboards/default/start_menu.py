@@ -27,7 +27,7 @@ start_menu_admin = ReplyKeyboardMarkup(
         ],
         [
             KeyboardButton(text='Список Участников'),
-            KeyboardButton(text='Кол-во Заданий')
+            KeyboardButton(text='Список Заданий')
         ],
         [
             KeyboardButton(text='Опубликовать проверку')

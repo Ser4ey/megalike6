@@ -2,7 +2,6 @@ from aiogram import types
 from aiogram.dispatcher.storage import FSMContext
 from aiogram.types import ReplyKeyboardRemove, CallbackQuery
 from loader import dp, db_of_active_users
-from keyboards.default import main_menu
 from states import AddUserByAdmin
 import data.config
 import datetime
