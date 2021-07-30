@@ -120,7 +120,7 @@ class DatabaseOfDayTasks:
 
     @staticmethod
     def return_task_text(url, task_description):
-        text = url + '\n' + task_description
+        text = url + '\n\n' + task_description
         return text
 
 
@@ -157,7 +157,5 @@ class DatabaseOfDayTasks:
         return text_response
 
 
-#
-# b1 = DatabaseOfDayTasks()
-# b1.create_table_of_Day_Tasks()
-#
+
+

@@ -1,8 +1,7 @@
 from aiogram import types
 from aiogram.dispatcher.storage import FSMContext
-from aiogram.types import ReplyKeyboardRemove, CallbackQuery
 from loader import dp, db_of_active_users
-from states import AddUserByAdmin
+from states import DailyCheck
 import data.config
 import datetime
 
@@ -21,7 +20,7 @@ def check_admin(user_id):
         return False
 
 
-@dp.message_handler(text='Добавить Участника')
+@dp.message_handler(text='Опубликовать проверку')
 async def add_user(message: types.Message, state: FSMContext):
     # добавления участника
     # Дынные: Telegram_id, Instagram_account_name, phone_number
@@ -32,37 +31,22 @@ async def add_user(message: types.Message, state: FSMContext):
         await message.answer(text=f'Вы не админ. telegram_id={id}')
         return
 
-    await AddUserByAdmin.state_id.set()
-    await message.answer('Добавления пользователя-1\n(Для отмены:_)\nВведите telegram_id:')
+    await DailyCheck.send_big_text.set()
+    await message.answer('Отправте результат проверки одним текстовым сообщением (_ для отмены).')
 
 
-@dp.message_handler(state=AddUserByAdmin.state_id)
+@dp.message_handler(state=DailyCheck.send_big_text)
 async def add_user1_id(message: types.Message, state: FSMContext):
-    user_telegram_id = message.text
+    big_text = message.text
 
-    if user_telegram_id == '_':
-        await message.answer('Вы отменили добавление пользователя')
-        await state.finish()
-        return
-    try:
-        test1 = int(user_telegram_id)
-    except Exception as er:
-        await message.answer(f'Неверный формат telegram_id: {str(er)}')
+    if big_text == '_':
+        await message.answer('Вы отменили ежедневную проверку!')
         await state.finish()
         return
 
-    # проверка на существование telegram_id
-    user_info = db_of_active_users.select_active_User(telegram_id=user_telegram_id)
-    if not user_info is None:
-        await message.answer(f'Такой telegram аккаунт уже существует!')
-        await state.finish()
-        return
+    await state.update_data(big_text=big_text)
 
-
-    await state.update_data(telegram_id=user_telegram_id)
-    await message.answer('Добавления пользователя-2\n(Для отмены:_)\nВведите @instagram_account:')
-    await AddUserByAdmin.state_instagram_name.set()
-
+    all_user = db_of_active_users.select_active_User()
 
 @dp.message_handler(state=AddUserByAdmin.state_instagram_name)
 async def add_user1_id(message: types.Message, state: FSMContext):
