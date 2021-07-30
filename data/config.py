@@ -7,8 +7,10 @@ BOT_TOKEN = str(os.getenv("BOT_TOKEN"))
 PROVIDER_TOKEN = str(os.getenv("PROVIDER_TOKEN"))
 
 admins = [
-    409524113
+    409524113,
+    979399757
 ]
+
 ip = os.getenv("ip")
 
 aiogram_redis = {

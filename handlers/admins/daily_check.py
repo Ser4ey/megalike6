@@ -36,7 +36,7 @@ async def add_user(message: types.Message, state: FSMContext):
 
 
 @dp.message_handler(state=DailyCheck.send_big_text)
-async def add_user1_id(message: types.Message, state: FSMContext):
+async def daily2(message: types.Message, state: FSMContext):
     big_text = message.text
 
     if big_text == '_':
@@ -45,62 +45,72 @@ async def add_user1_id(message: types.Message, state: FSMContext):
         return
 
     await state.update_data(big_text=big_text)
+    Users = []
 
-    all_user = db_of_active_users.select_active_User()
+    all_user = db_of_active_users.select_all_active_Users()
+    List_of_id = 's:'
 
-@dp.message_handler(state=AddUserByAdmin.state_instagram_name)
-async def add_user1_id(message: types.Message, state: FSMContext):
-    instagram_account = message.text
+    for i in range(len(all_user)):
+        vip_status = all_user[i][8]
+        if 'vip' in vip_status or 'VIP' in vip_status or 'Vip' in vip_status:
+            continue
+        telegram_id = all_user[i][0]
+        instagram_account = all_user[i][1]
+        Users.append((telegram_id, instagram_account))
 
-    if instagram_account == '_':
-        await message.answer('Вы отменили добавление пользователя')
-        await state.finish()
-        return
+    text_answer = '---------------\n\n'
+    for i in range(len(Users)):
+        telegram_id = Users[i][0]
+        instagram_account = Users[i][1]
 
-    user_info = db_of_active_users.select_active_User(instagram_account_name=instagram_account)
-    if not user_info is None:
-        await message.answer(f'Такой инстаграм аккаунт уже существует!')
-        await state.finish()
-        return
+        text_ = f'{i}) {telegram_id} -> {instagram_account}'
+        text_answer = text_answer + text_ + '\n'
 
-    await state.update_data(instagram_account=instagram_account)
-    await message.answer('Добавления пользователя-3\n(Для отмены:_ Если нет, то:1)\nВведите номер телефона:')
-    await AddUserByAdmin.state_phone_number.set()
+        List_of_id = List_of_id + ':' + str(telegram_id)
+
+    List_of_id = List_of_id.strip(':')
+    List_of_id = List_of_id.strip('s:')
+    await message.answer(text_answer)
+    await message.answer(f'Укажите через ":" номера пользователей, которые не прошли задания')
+    await state.update_data(List_of_id=List_of_id)
+
+    await DailyCheck.info_by_users.set()
 
 
-@dp.message_handler(state=AddUserByAdmin.state_phone_number)
-async def add_user1_id(message: types.Message, state: FSMContext):
-    phone_number = message.text
+@dp.message_handler(state=DailyCheck.info_by_users)
+async def daily2(message: types.Message, state: FSMContext):
+    user_text = message.text
+    user_text = user_text.strip()
+    user_text = user_text.strip(':')
+    user_text = user_text.strip('s:')
 
-    if phone_number == '_':
-        await message.answer('Вы отменили добавление пользователя')
-        await state.finish()
-        return
-    if str(phone_number) == '1':
-        phone_number = '123-no-phone'
 
     data_ = await state.get_data()
-    telegram_id = data_.get('telegram_id')
-    instagram_account = data_.get('instagram_account')
-    phone_number = phone_number
-    time_today = str(datetime.datetime.today()).strip().split('.')[0]
+    big_text = data_.get('big_text')
+    List_of_id = data_.get('List_of_id')
 
-    f_text = f'''
-telegram_id: {telegram_id}
-instagram_account: {instagram_account}
-phone_number: {phone_number}
-time_today: {time_today}
-    '''
-    await message.answer(f_text)
-    await message.answer('Пользователь успешно добавлен!')
+
+    users = db_of_active_users.select_all_active_Users()
+    for user in users:
+        try:
+            user_id_ = user[0]
+            await dp.bot.send_message(chat_id=user_id_, text=big_text)
+        except:
+            pass
+
+    list_of_user = List_of_id.split(':')
+    list_of_targets = user_text.split(':')
+
+    for target in list_of_targets:
+        try:
+            # print(f'target: {target}')
+            # print(f'target: {list_of_user[int(target)]}')
+
+            await dp.bot.send_message(chat_id=list_of_user[int(target)], text='Вы не прошли проверку сегодня!')
+        except:
+            await message.answer(f'Не удалось отправить сообщение: {target}')
+
     await state.finish()
-    db_of_active_users.add_active_User(
-        telegram_id=telegram_id,
-        instagram_account_name=instagram_account,
-        phone_number=phone_number,
-        registration_date=time_today,
-
-    )
 
 
 
