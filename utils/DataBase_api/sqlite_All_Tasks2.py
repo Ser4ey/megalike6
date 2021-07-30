@@ -130,6 +130,7 @@ class DatabaseOfDayTasks:
         + Добавляет телеграм id пользователя в информацию о заданиии,
         таким образом пользователь больше не получит такого задания.
         '''
+        user_telegram_id = str(user_telegram_id)
         all_task = self.select_all_day_Task()
         text_response = 'Сейчас нет доступных заданий'
         task_number = -1
