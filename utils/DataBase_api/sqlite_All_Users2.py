@@ -56,13 +56,14 @@ class DatabaseAllActiveUsers:
         vip_bought_date varchar(255),
         special_vip_links_number int NOT NULL,
         deadline_of_common_vip varchar(255),
+        user_real_name varchar(255),
 
         PRIMARY KEY (telegram_id)
         );
         """
         self.execute(sql, commit=True)
 
-    def add_active_User(self, telegram_id, instagram_account_name, phone_number, registration_date):
+    def add_active_User(self, telegram_id, instagram_account_name, phone_number, registration_date, user_real_name):
         telegram_id = int(telegram_id)
         instagram_account_name = str(instagram_account_name)
         phone_number = str(phone_number)
@@ -75,13 +76,14 @@ class DatabaseAllActiveUsers:
         vip_bought_date = 'not'
         special_vip_links_number = 0
         deadline_of_common_vip = 'not'
+        user_real_name = str(user_real_name)
 
         result = self.select_active_User(telegram_id=telegram_id)
         if result is not None:
             print('Пользователь уже существует, его нельзя добавить!')
             return
 
-        sql = "INSERT INTO All_Active_Users(telegram_id, instagram_account_name, phone_number, registration_date, doing_task_history, available_links_for_today, number_of_links_requested_today, common_day_link_limit, vip_status, vip_bought_date, special_vip_links_number, deadline_of_common_vip) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+        sql = "INSERT INTO All_Active_Users(telegram_id, instagram_account_name, phone_number, registration_date, doing_task_history, available_links_for_today, number_of_links_requested_today, common_day_link_limit, vip_status, vip_bought_date, special_vip_links_number, deadline_of_common_vip, user_real_name) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
         parameters = (telegram_id, instagram_account_name, phone_number, registration_date, doing_task_history, available_links_for_today, number_of_links_requested_today, common_day_link_limit, vip_status, vip_bought_date, special_vip_links_number, deadline_of_common_vip)
         self.execute(sql, parameters=parameters, commit=True)
 
