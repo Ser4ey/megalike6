@@ -5,5 +5,6 @@ class AddUserByAdmin(StatesGroup):
     state_id = State()
     state_instagram_name = State()
     state_phone_number = State()
+    real_name = State()
 
 
