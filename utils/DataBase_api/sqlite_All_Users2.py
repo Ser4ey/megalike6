@@ -84,7 +84,7 @@ class DatabaseAllActiveUsers:
             return
 
         sql = "INSERT INTO All_Active_Users(telegram_id, instagram_account_name, phone_number, registration_date, doing_task_history, available_links_for_today, number_of_links_requested_today, common_day_link_limit, vip_status, vip_bought_date, special_vip_links_number, deadline_of_common_vip, user_real_name) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
-        parameters = (telegram_id, instagram_account_name, phone_number, registration_date, doing_task_history, available_links_for_today, number_of_links_requested_today, common_day_link_limit, vip_status, vip_bought_date, special_vip_links_number, deadline_of_common_vip)
+        parameters = (telegram_id, instagram_account_name, phone_number, registration_date, doing_task_history, available_links_for_today, number_of_links_requested_today, common_day_link_limit, vip_status, vip_bought_date, special_vip_links_number, deadline_of_common_vip, user_real_name)
         self.execute(sql, parameters=parameters, commit=True)
 
     def delete_active_User_by_instagram_account_name(self, instagram_account_name):
