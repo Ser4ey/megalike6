@@ -32,24 +32,25 @@ async def add_task(message: types.Message, state: FSMContext):
         return
 
     users = db_of_active_users.select_all_active_Users()
+    big_text = 'Срисок участников:\n\n'
     for i in range(len(users)):
-        text_ = f'{i+1}) {users[i]}'
-        text_ = f'''
-Number-{i+1}
-
-telegram_id: {users[i][0]}
-instagram_account_name: {users[i][1]}
-phone_number: {users[i][2]}
-registration_date: {users[i][3]}
-available_links_for_today: {users[i][5]}
-number_of_links_requested_today: {users[i][6]}
-common_day_link_limit: {users[i][7]}
-vip_status: {users[i][8]}
-vip_bought_date: {users[i][9]}
-special_vip_links_number: {users[i][10]}
-deadline_of_common_vip: {users[i][11]}
-'''
-        await message.answer(text=text_)
+        big_text = big_text + f'{i+1}) {users[i][12]} {users[i][1]}\n'
+#         text_ = f'''
+# Number-{i+1}
+#
+# telegram_id: {users[i][0]}
+# instagram_account_name: {users[i][1]}
+# phone_number: {users[i][2]}
+# registration_date: {users[i][3]}
+# available_links_for_today: {users[i][5]}
+# number_of_links_requested_today: {users[i][6]}
+# common_day_link_limit: {users[i][7]}
+# vip_status: {users[i][8]}
+# vip_bought_date: {users[i][9]}
+# special_vip_links_number: {users[i][10]}
+# deadline_of_common_vip: {users[i][11]}
+# '''
+        await message.answer(text=big_text)
         await asyncio.sleep(0.1)
 
     await message.answer(text=f'Всего участников: {len(users)}')
